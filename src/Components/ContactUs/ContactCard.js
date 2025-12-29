@@ -9,8 +9,7 @@ export default function ContactCard() {
   };
 
   return (
-    <section className="w-full bg-[#f6f7f9] py-16 px-6 sm:px-10">
-
+    <section className="w-full bg-[#f6f7f9] py-16 px-6 sm:px-10 mt-10">
       {/* Page Header */}
       <div className="text-center mb-10">
         <h2 className="text-4xl font-bold text-gray-900">
@@ -23,7 +22,6 @@ export default function ContactCard() {
 
       {/* Main Container */}
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-stretch">
-
         {/* LEFT – Contact Card */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -37,16 +35,18 @@ export default function ContactCard() {
             </h3>
 
             <div className="space-y-8">
-
               {/* Address */}
               <div className="flex gap-4">
                 <FiMapPin className="text-[#f97316] mt-1" size={22} />
                 <div>
                   <h4 className="font-semibold text-gray-900">Address</h4>
                   <p className="text-gray-700 mt-1 leading-relaxed">
-                    REVA University, School of Civil Engineering <br />
-                    Rukmini Knowledge Park, Yelahanka <br />
-                    Bengaluru – 560064, Karnataka
+                    REVA University (Testing Division) <br />
+                    School of Civil Engineering <br />
+                    REVA University <br />
+                    Sy No 22, 26 and 27, Kottigenahali Hobli <br />
+                    Yelahanka, Bengaluru (Bangalore) Urban <br />
+                    Karnataka – 560064
                   </p>
                 </div>
               </div>
@@ -86,7 +86,9 @@ export default function ContactCard() {
                       Mr. K. Chandraprakash, M.Tech. (Ph.D.)
                     </span>
                     <br />
-                    Technical Manager, Testing Division <br />
+                    Technical Manager.<br/> REVA University (Testing Division) <br />
+                    School of Civil Engineering,
+                    REVA University <br />
                     Mobile: <span className="font-medium">+91 8897473289</span>
                     <br />
                     Tel: 080 4696 6966 | Ext: 189

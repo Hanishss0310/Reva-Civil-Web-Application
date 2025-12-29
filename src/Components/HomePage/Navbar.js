@@ -1,14 +1,13 @@
+// Navbar.jsx
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FiMenu, FiX, FiSearch } from "react-icons/fi";
+import { FiMenu, FiX, FiMail } from "react-icons/fi";
 import { useNavigate, useLocation } from "react-router-dom";
 import logo from "./Images/revawhitelogo.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [active, setActive] = useState("Home");
-  const [searchOpen, setSearchOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -61,39 +60,6 @@ const Navbar = () => {
     navigate(item.path);
   };
 
-  // Search logic
-  const handleSearch = (e) => {
-    e.preventDefault();
-    const query = searchQuery.toLowerCase().trim();
-    if (!query) return;
-
-    const matches = {
-      projects: "projects-section",
-      about: "about-section",
-      services: "services-section",
-      home: "top",
-    };
-
-    let matchedSection = null;
-
-    Object.keys(matches).forEach((key) => {
-      if (query.includes(key)) matchedSection = matches[key];
-    });
-
-    if (matchedSection) {
-      if (location.pathname === "/") {
-        scrollToSection(matchedSection);
-      } else {
-        navigate("/", { state: { scrollTo: matchedSection } });
-      }
-    } else {
-      alert("No matching section found on Home page!");
-    }
-
-    setSearchQuery("");
-    setSearchOpen(false);
-  };
-
   return (
     <motion.nav
       initial={{ y: -60, opacity: 0 }}
@@ -138,47 +104,25 @@ const Navbar = () => {
           ))}
         </div>
 
-        {/* Search + Icons */}
+        {/* Contact Icon (replaces Search) */}
         <div className="hidden md:flex items-center gap-4 text-gray-300 relative">
           <motion.div
-            whileHover={{ scale: 1.1 }}
-            className="cursor-pointer"
-            onClick={() => setSearchOpen(!searchOpen)}
+            whileHover={{ scale: 1.08 }}
+            className="cursor-pointer flex items-center gap-2 px-3 py-1 rounded-md"
+            onClick={() => navigate("/ContactUsIndex")}
+            title="Contact Us"
+            aria-label="Contact Us"
           >
-            <FiSearch
-              className={`transition ${
-                searchOpen ? "text-[#f97316]" : "hover:text-[#f97316]"
-              }`}
-              size={20}
-            />
+            <FiMail className="text-gray-300" size={20} />
+            <span className="hidden lg:inline text-sm text-gray-300 hover:text-[#f97316]">
+              Contact
+            </span>
           </motion.div>
-
-          {/* Search Box */}
-          <AnimatePresence>
-            {searchOpen && (
-              <motion.form
-                onSubmit={handleSearch}
-                initial={{ opacity: 0, width: 0 }}
-                animate={{ opacity: 1, width: 180 }}
-                exit={{ opacity: 0, width: 0 }}
-                transition={{ duration: 0.3 }}
-                className="absolute right-0 top-8 bg-[#393E46] rounded-lg overflow-hidden flex items-center px-2"
-              >
-                <input
-                  type="text"
-                  placeholder="Search..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="bg-transparent outline-none text-sm text-white w-full py-1 px-2"
-                />
-              </motion.form>
-            )}
-          </AnimatePresence>
         </div>
 
         {/* Mobile Menu Button */}
         <div className="md:hidden">
-          <button onClick={() => setIsOpen(!isOpen)}>
+          <button onClick={() => setIsOpen(!isOpen)} aria-label="Toggle menu">
             {isOpen ? <FiX size={24} /> : <FiMenu size={24} />}
           </button>
         </div>
@@ -206,6 +150,17 @@ const Navbar = () => {
                   {item.name}
                 </button>
               ))}
+
+              {/* Mobile explicit Contact CTA for clarity */}
+              <button
+                onClick={() => {
+                  setIsOpen(false);
+                  navigate("/ContactUsIndex");
+                }}
+                className="mt-3 w-full text-left text-lg font-semibold text-[#f97316] bg-transparent"
+              >
+                Contact Us
+              </button>
             </ul>
           </motion.div>
         )}

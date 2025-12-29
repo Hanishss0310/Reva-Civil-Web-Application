@@ -50,7 +50,7 @@ const expertise = [
 
 const AboutCivilEngineering = () => {
   return (
-    <section className="relative w-full py-24 px-6 lg:px-20 overflow-hidden">
+    <section className="relative w-full py-24 px-6 lg:px-20 overflow-hidden bg-slate-200">
       {/* Animated Gradient Background */}
       <motion.div
         initial={{ opacity: 0 }}

@@ -49,11 +49,9 @@ const PartnersShowcase = () => {
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.6 }}
         >
-          Existing Construction & Industry Partners
+        Our Industry Partners
         </motion.h2>
-        <p className="text-gray-600 text-lg mb-10">
-          School of Civil Engineering, Reva University — 2023–25
-        </p>
+        
 
         {/* Filter Buttons */}
         <motion.div

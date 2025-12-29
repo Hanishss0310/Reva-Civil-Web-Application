@@ -139,8 +139,8 @@ const ServicesScroller = () => {
                 transition={{ type: "spring", stiffness: 400, damping: 10 }}
                 className="text-xs font-medium flex items-center justify-center gap-1 text-orange-400 hover:text-white transition-all"
               >
-                <span>Read More</span>
-                <span>↗</span>
+                {/* <span>Read More</span> */}
+                {/* <span>↗</span> */}
               </motion.button>
             </motion.div>
           ))}

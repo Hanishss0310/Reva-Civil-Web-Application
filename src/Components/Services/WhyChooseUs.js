@@ -8,15 +8,18 @@ import {
   ArrowRight,
   Layers,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
-const FeatureCard = ({ icon, title, description }) => (
+const FeatureCard = ({ icon, title, description, link }) => (
   <motion.div
     whileHover={{ y: -6, scale: 1.02 }}
     transition={{ type: "spring", stiffness: 200 }}
     className="relative bg-white p-8 rounded-2xl shadow-md border border-orange-100 h-full group hover:shadow-2xl transition-all duration-500"
   >
+    <Link to={link} className="absolute inset-0 z-20 rounded-2xl" />
+
     <div className="absolute inset-0 bg-gradient-to-br from-orange-50/60 to-orange-100/40 opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity duration-500"></div>
-    <div className="relative z-10">
+    <div className="relative z-10 pointer-events-none">
       <div className="flex items-center justify-center w-14 h-14 bg-orange-100 rounded-xl mb-5">
         {React.cloneElement(icon, { className: "w-7 h-7 text-orange-600" })}
       </div>
@@ -24,6 +27,15 @@ const FeatureCard = ({ icon, title, description }) => (
         {title}
       </h3>
       <p className="text-gray-700 leading-relaxed text-sm">{description}</p>
+
+      {/* arrow indicator */}
+      <motion.div
+        className="mt-4 text-orange-600 flex items-center gap-1 font-semibold"
+        whileHover={{ x: 6 }}
+      >
+        <span className="text-sm">Explore</span>
+        <ArrowRight className="w-4 h-4" />
+      </motion.div>
     </div>
   </motion.div>
 );
@@ -35,34 +47,36 @@ const WhyChooseReva = () => {
       description:
         "Delivering advanced testing, analysis, and validation for critical infrastructure — ensuring every project meets global standards of safety and quality.",
       icon: <ShieldCheck />,
+      link: "/AdvancedSpecializedServicesSection",
     },
     {
       title: "Design & Structural Consultancy",
       description:
         "Our consultancy blends creativity with engineering precision to deliver durable, functional, and aesthetically refined infrastructure solutions.",
       icon: <Building2 />,
+      link: "/DesignStructuralConsultancy",
     },
     {
       title: "Precision Surveying & Mapping",
       description:
         "Providing accurate measurements, mapping, and layout verification using modern Total Station and digital tools — ensuring absolute precision.",
       icon: <Ruler />,
+      link: "/Surveying",
     },
     {
       title: "Integrated Project Solutions",
       description:
         "Combining testing, design, and field data integration under one roof — minimizing coordination delays and improving overall project performance.",
       icon: <Layers />,
+      link: "/GeneralMaterialTesting", // you can change if another page exists
     },
   ];
 
   return (
     <div className="relative bg-gradient-to-b from-orange-50 via-white to-orange-100 py-24 px-5 md:px-12 lg:px-24 overflow-hidden">
-      {/* Background pattern */}
       <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_1px_1px,_#fb923c_1px,_transparent_0)] bg-[length:20px_20px]" />
 
       <div className="max-w-7xl mx-auto relative z-10">
-        {/* Headline */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -84,9 +98,7 @@ const WhyChooseReva = () => {
           </p>
         </motion.div>
 
-        {/* Feature Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-stretch">
-          {/* Left Grid (4 feature cards) */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {features.map((feature, index) => (
               <FeatureCard
@@ -94,11 +106,12 @@ const WhyChooseReva = () => {
                 icon={feature.icon}
                 title={feature.title}
                 description={feature.description}
+                link={feature.link}
               />
             ))}
           </div>
 
-          {/* Right Premium Card */}
+          {/* Premium Card */}
           <motion.div
             initial={{ opacity: 0, x: 60 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -124,21 +137,19 @@ const WhyChooseReva = () => {
                 integrated data analysis, our responsive system guarantees
                 accuracy and efficiency without compromising quality.
               </p>
-              <p className="text-orange-100/80 leading-relaxed text-sm">
-                Our promise is reliability — every time, on time, for every
-                engineer, builder, and client who trusts REVA Civil Labs.
-              </p>
             </div>
 
-            <motion.a
-              href="#contact"
-              whileHover={{ scale: 1.05 }}
-              className="mt-8 bg-white text-orange-700 font-semibold py-3 px-6 rounded-lg inline-flex items-center justify-center gap-2 shadow-md hover:shadow-lg hover:bg-orange-50 transition-all duration-300"
-            >
-              Start Your Project
-              <ArrowRight className="w-5 h-5" />
-            </motion.a>
+            <motion.div whileHover={{ scale: 1.05 }}>
+              <Link
+                to="/ContactUsIndex"
+                className="mt-8 bg-white text-orange-700 font-semibold py-3 px-6 rounded-lg inline-flex items-center justify-center gap-2 shadow-md hover:shadow-lg hover:bg-orange-50 transition-all duration-300"
+              >
+                Start Your Project
+                <ArrowRight className="w-5 h-5" />
+              </Link>
+            </motion.div>
           </motion.div>
+
         </div>
       </div>
     </div>

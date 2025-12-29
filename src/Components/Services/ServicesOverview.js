@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import {
   ClipboardCheck,
   Building2,
@@ -7,118 +8,112 @@ import {
   FlaskConical,
   Droplets,
   Hammer,
+  ChevronRight,
 } from "lucide-react";
 
 const ServicesOverview = () => {
+  const navigate = useNavigate();
+
   const services = [
     {
       icon: <ClipboardCheck />,
       title: "Advanced & Specialized Services",
       desc: "Precision-driven evaluations for infrastructure, materials, and structures ensuring reliability and performance.",
+      link: "/AdvancedSpecializedServicesSection",
     },
     {
       icon: <Building2 />,
       title: "Design & Structural Consultancy",
       desc: "End-to-end structural design solutions integrating safety, sustainability, and architectural excellence.",
+      link: "/DesignStructuralConsultancy",
     },
     {
       icon: <Ruler />,
       title: "Surveying",
       desc: "High-precision topographical and layout surveying using advanced Total Station and digital tools.",
+      link: "/Surveying",
     },
     {
       icon: <FlaskConical />,
       title: "General Material Testing",
       desc: "Comprehensive testing for aggregates, cement, concrete, soil, and bitumen as per IS and ASTM standards.",
+      link: "/GeneralMaterialTesting",
     },
     {
       icon: <Hammer />,
       title: "Bricks, Blocks & Steel Testing",
       desc: "Evaluation of bricks, blocks, pavers, and reinforcement steel ensuring safety and structural compliance.",
+      link: "/BricksBlocksPavers",
     },
     {
       icon: <Droplets />,
       title: "Water & Wastewater Testing",
       desc: "Chemical and physical analysis for construction and environmental compliance as per IS and APHA standards.",
+      link: "/WaterWastewaterTesting",
     },
   ];
 
+  const palette = [
+    "bg-amber-500 text-white",
+    "bg-gray-600 text-white",
+    "bg-sky-500 text-white",
+    "bg-cyan-500 text-white",
+    "bg-rose-500 text-white",
+    "bg-emerald-500 text-white",
+  ];
+
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-orange-50 via-white to-orange-100 py-24 px-6 md:px-12">
-      {/* Animated background pattern */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,#fb923c_1px,transparent_0)] bg-[length:22px_22px] opacity-10 animate-pulse" />
+    <section className="relative py-8 px-4 md:px-8">
+      <div className="max-w-7xl mx-auto">
+        {/* FLEX WRAP FOR 3 PER ROW */}
+        <div className="flex flex-wrap -mx-3">
+          {services.map((svc, idx) => {
+            const color = palette[idx % palette.length];
+            return (
+              <motion.button
+                key={idx}
+                onClick={() => svc.link && navigate(svc.link)}
+                whileTap={{ scale: 0.98 }}
+                whileHover={{ y: -4 }}
+                initial={{ opacity: 0, x: -24 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: idx * 0.05, type: "spring", stiffness: 120 }}
+                className={`
+                  ${color} 
+                  rounded-md shadow-md overflow-hidden cursor-pointer
+                  m-3 
+                  w-full sm:w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-1.5rem)]
+                `}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center px-6 py-6">
+                    <div className="mr-4">
+                      <div className="w-[46px] h-[46px] bg-white/10 rounded-md flex items-center justify-center">
+                        {React.cloneElement(svc.icon, { className: "w-5 h-5" })}
+                      </div>
+                    </div>
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        {/* Heading Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <motion.div
-            className="inline-block bg-orange-100 text-orange-700 px-6 py-2 rounded-full text-sm font-semibold uppercase tracking-wide shadow-sm"
-            whileHover={{ scale: 1.05 }}
-          >
-            Our Expertise
-          </motion.div>
-          <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mt-5 leading-snug">
-            Comprehensive <span className="text-orange-600">Engineering Services</span>
-          </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto mt-4 text-base leading-relaxed">
-            From precision testing to advanced design consultancy — we deliver accuracy, reliability, and innovation across every engineering discipline.
-          </p>
-        </motion.div>
+                    <div className="text-left">
+                      <div className="font-serif text-2xl leading-tight tracking-wide">
+                        {svc.title}
+                      </div>
 
-        {/* Service Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-          {services.map((service, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              whileHover={{ y: -8, scale: 1.03 }}
-              className="relative group bg-white border border-orange-100 p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-500 overflow-hidden"
-            >
-              {/* Gradient Glow */}
-              <div className="absolute inset-0 bg-gradient-to-br from-orange-50 via-white to-orange-100 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                      {/* desc visible only md+ */}
+                      <div className="hidden md:block text-sm opacity-90 mt-1 max-w-xs">
+                        {svc.desc}
+                      </div>
+                    </div>
+                  </div>
 
-              {/* Icon */}
-              <div className="relative z-10 flex items-center justify-center w-14 h-14 bg-orange-100 rounded-xl mb-6 group-hover:rotate-6 transition-transform duration-300">
-                {React.cloneElement(service.icon, {
-                  className: "w-7 h-7 text-orange-600",
-                })}
-              </div>
-
-              {/* Title */}
-              <h3 className="relative z-10 text-xl font-semibold text-gray-900 mb-3">
-                {service.title}
-              </h3>
-
-              {/* Description */}
-              <p className="relative z-10 text-gray-700 text-sm leading-relaxed">
-                {service.desc}
-              </p>
-
-              {/* Animated Border Light */}
-              <div className="absolute inset-0 border border-transparent group-hover:border-orange-200 rounded-2xl transition-all duration-700"></div>
-
-              {/* Subtle Glow */}
-              <div className="absolute inset-0 bg-gradient-to-r from-orange-200/20 via-transparent to-orange-100/10 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity duration-700"></div>
-            </motion.div>
-          ))}
+                  <div className="px-4 flex items-center justify-center">
+                    <ChevronRight className="w-6 h-6" />
+                  </div>
+                </div>
+              </motion.button>
+            );
+          })}
         </div>
       </div>
-
-      {/* Floating Glow Element */}
-      <motion.div
-        className="absolute -bottom-32 right-20 w-96 h-96 bg-orange-300/30 blur-[140px] rounded-full"
-        animate={{ y: [0, 20, 0] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-      />
     </section>
   );
 };
